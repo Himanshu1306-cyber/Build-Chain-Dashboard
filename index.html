@@ -72,7 +72,7 @@
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 
 <script>
-    // --- FIREBASE CONFIG (Aapke Screenshot se) ---
+  
     const firebaseConfig = {
         apiKey: "AIzaSyD9XCbZFItbtq-luerMm7IDeXHAtba3nW8",
         authDomain: "buildchain-e1bab.firebaseapp.com",
@@ -84,7 +84,7 @@
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
-    // --- AUTH LOGIC START ---
+   
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -98,7 +98,7 @@ async function handleAuth() {
 }
 
 
-// --- AUTH LOGIC END ---
+
 
     const contractAddress = "0xA937BF6609Cba6bBb430E8Dbd63818A854f41BBb"; 
     const abi = [
@@ -110,20 +110,20 @@ async function handleAuth() {
     let projects = [];
     let currentActiveId = 1;
 
-   // Isse Line 126 par paste karein (window.onload ki jagah)
+   
 auth.onAuthStateChanged(user => {
     const btn = document.getElementById("authBtn");
     const dashboard = document.querySelector(".main-content");
     const projectList = document.getElementById("projectList");
 
     if (user) {
-        // Jab user Login ho jaye
+       
         btn.innerText = "Logout (" + user.displayName.split(' ')[0] + ")";
         dashboard.style.opacity = "1";
         dashboard.style.pointerEvents = "auto";
         loadProjectsFromFirebase(); 
     } else {
-        // Jab user Logout ho
+       
         btn.innerText = "Login with Google";
         dashboard.style.opacity = "0.1";
         dashboard.style.pointerEvents = "none";
@@ -137,15 +137,15 @@ auth.onAuthStateChanged(user => {
     snapshot.forEach(doc => { projects.push(doc.data()); });
 
     if (projects.length > 0) {
-        // Pehla project auto-select karein
+      
         switchProject(projects[0].id, projects[0].name);
         renderSidebar(); 
     } else {
-        // Agar database khali hai toh default project banayein
+        
         await db.collection("projects").add({ id: 1, name: "Project Alpha" });
         location.reload();
     }
-} // Line 143 par ye bracket confirm karein
+} 
 
     function renderSidebar() {
         const list = document.getElementById("projectList");
@@ -169,7 +169,7 @@ auth.onAuthStateChanged(user => {
 
    function switchProject(id, name) {
     currentActiveId = id;
-    // Dhyan dein: ID 'displayProjName' honi chahiye (HTML Line 39 ke mutabiq)
+   
     document.getElementById("displayProjName").innerText = name; 
     document.getElementById("displayProjId").innerText = id;    
 
